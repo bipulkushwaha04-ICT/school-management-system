@@ -1,0 +1,2138 @@
+
+> build
+> next build
+
+▲ Next.js 16.4.2 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 114ms
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 129 errors:
+./tsconfig.json:1:1
+Error: An issue occurred while parsing a tsconfig.json file.
+[31m[1m>[0m [90m1 |[0m ﻿{
+  [90m  |[0m [31m[1m^[0m
+  [90m2 |[0m     [32m"compilerOptions"[0m:  {
+  [90m3 |[0m                             [32m"target"[0m:  [32m"ES2017"[0m,
+  [90m4 |[0m                             [32m"lib"[0m:  [
+
+tsconfig is not parseable: invalid JSON: Unexpected token
+
+
+./src/app/(app)/academic-years/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { academicYears, enrollments, examinations } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/attendance/page.tsx:6:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m4 |[0m [36mimport[0m { students, enrollments, classes, sections, attendance, classSubjects, parentChildre...
+  [90m5 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { attendancePct, fmtDate, todayStr, addDays, getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m8 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mDonut[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m9 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/classes/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { classes, sections, subjects, teachers, classSubjects, enrollments } [36mfrom[0m [32m"@/db/sch...[0m
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mConfirmButton[0m, [33mField[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/examinations/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { examinations, examSubjects, academicYears, classes, sections, subjects, classSubje...
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { fmtDate, todayStr, addDays } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/marks/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { examinations, examSubjects, classes, subjects, students, enrollments, classSubject...
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { notes, classes, sections, subjects, users, enrollments, classSubjects, parentChild...
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m [36mimport[0m { [33mFileNoteForm[0m, [33mReadNote[0m } [36mfrom[0m [32m"./FileNoteForm"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notices/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { notices, classes, sections, users, enrollments, classSubjects, parentChildren } [36mfr..[0m.
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/profile/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { users, students } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo, changePassword, logout } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mField[0m, [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/promotion/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { classes, sections, students, enrollments, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/results/page.tsx:16:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m14 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m15 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m16 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m17 |[0m [36mimport[0m { computeClassResults, fmtDate, getScale, [33mStudentResult[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m18 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m19 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/page.tsx:7:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m 5 |[0m [36mimport[0m { settings [36mas[0m settingsTable, gradingScale } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m 6 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m 9 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mField[0m, [33mBadge[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m10 |[0m [36mimport[0m { [33mRestoreForm[0m } [36mfrom[0m [32m"./RestoreForm"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/page.tsx:6:64
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m 4 |[0m ...{ db } [36mfrom[0m [32m"@/db"[0m;
+  [90m 5 |[0m ...{ students, enrollments, classes, sections, academicYears, attendance } [36mfrom[0m [32m"@/db/sche...[0m
+[31m[1m>[0m [90m 6 |[0m ...{ requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m                                                            [31m[1m^[0m
+[31m[1m>[0m [90m 7 |[0m ...{ flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m ...{ [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/...[0m
+  [90m 9 |[0m ...
+  [90m10 |[0m ...[36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/subjects/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { subjects, classSubjects, examSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/teachers/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { teachers, classSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/users/page.tsx:6:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m4 |[0m [36mimport[0m { users, students, teachers, sessions } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m5 |[0m [36mimport[0m { requireRole, hashPassword, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m {
+  [90m8 |[0m   [33mPageHead[0m,
+  [90m9 |[0m   [33mBadge[0m,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/page.tsx:5:1
+Error: Module not found: Can't resolve '@/actions/auth'
+  [90m3 |[0m [36mimport[0m { redirect } [36mfrom[0m [32m"next/navigation"[0m;
+  [90m4 |[0m [36mimport[0m { getSessionUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { login } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { [33mIcon[0m, [33mDemoFill[0m, [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m [36mimport[0m { [33mDEFAULT_SCHOOL[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/layout.tsx:2:1
+Error: Module not found: Can't resolve '@/components/Sidebar'
+  [90m1 |[0m
+[31m[1m>[0m [90m2 |[0m [36mimport[0m [33mSidebar[0m, { [33mNavItem[0m } [36mfrom[0m [32m"@/components/Sidebar"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m4 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/marksheet/page.tsx:3:1
+Error: Module not found: Can't resolve '@/components/print-button'
+  [90m1 |[0m
+  [90m2 |[0m [36mimport[0m [33mImage[0m [36mfrom[0m [32m"next/image"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m [33mPrintButton[0m [36mfrom[0m [32m"@/components/print-button"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m5 |[0m [36mimport[0m { notFound, redirect } [36mfrom[0m [32m"next/navigation"[0m;
+  [90m6 |[0m [36mimport[0m { eq, and, sql, inArray, isNull, or } [36mfrom[0m [32m"drizzle-orm"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/page.tsx:1:1
+Error: Module not found: Can't resolve '@/components/student-class-section-fields'
+[31m[1m>[0m [90m1 |[0m ﻿[36mimport[0m [33mStudentClassSectionFields[0m [36mfrom[0m [32m"@/components/student-class-section-fields"[0m;[36mimport[0m [33mLi..[0m.
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { redirect } [36mfrom[0m [32m"next/navigation"[0m;
+  [90m3 |[0m [36mimport[0m { eq, and, sql, isNull, inArray } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/academic-years/page.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m ...equireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...lashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m ...[33mageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/comp...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m ...
+  [90m8 |[0m ...[36mst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m9 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/activity/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mEmpty[0m, [33mAvatar[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m
+  [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m10 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/attendance/page.tsx:8:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 7 |[0m [36mimport[0m { attendancePct, fmtDate, todayStr, addDays, getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mDonut[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m
+  [90m10 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m11 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/classes/page.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mConfirmButton[0m, [33mField[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m9 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/dashboard/page.tsx:24:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m22 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m23 |[0m [36mimport[0m { attendancePct, computeClassResults, fmtDate, todayStr, addDays, getScale } [36mfrom[0m [32m"...[0m
+[31m[1m>[0m [90m24 |[0m [36mimport[0m { [33mStat[0m, [33mDonut[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPageHead[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m25 |[0m
+  [90m26 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m27 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/examinations/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m ...ashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 6 |[0m ...tDate, todayStr, addDays } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 7 |[0m ...[33mgeHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/comp...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m ...
+  [90m 9 |[0m ...[36mt[0m dynamic = [32m"force-dynamic"[0m;
+  [90m10 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/layout.tsx:3:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m1 |[0m
+  [90m2 |[0m [36mimport[0m [33mSidebar[0m, { [33mNavItem[0m } [36mfrom[0m [32m"@/components/Sidebar"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m6 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/marks/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m
+  [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m10 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/FileNoteForm.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m [36mimport[0m { useState } [36mfrom[0m [32m"react"[0m;
+  [90m5 |[0m [36mimport[0m { useRouter } [36mfrom[0m [32m"next/navigation"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { [33mIcon[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mfunction[0m [33mReadNote[0m({ content }: { content: string }) {
+  [90m9 |[0m   [36mconst[0m [open, setOpen] = useState([36mfalse[0m);
+
+
+
+Import trace:
+  Server Component:
+    ./src/app/(app)/notes/FileNoteForm.tsx
+    ./src/app/(app)/notes/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/NoteForm.tsx:4:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { useState } [36mfrom[0m [32m"react"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mIcon[0m, [33mField[0m, [33mModalCancel[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mfunction[0m [33mNoteForm[0m({
+  [90m7 |[0m   action,
+
+
+
+Import trace:
+  Server Component:
+    ./src/app/(app)/notes/NoteForm.tsx
+    ./src/app/(app)/notes/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m [36mimport[0m { [33mFileNoteForm[0m, [33mReadNote[0m } [36mfrom[0m [32m"./FileNoteForm"[0m;
+  [90m 9 |[0m [36mimport[0m { [33mNoteForm[0m } [36mfrom[0m [32m"./NoteForm"[0m;
+  [90m10 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notices/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m ...ashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 6 |[0m ...tDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 7 |[0m ...[33mgeHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/comp...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m ...
+  [90m 9 |[0m ...[36mt[0m dynamic = [32m"force-dynamic"[0m;
+  [90m10 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/profile/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m [36mimport[0m { flashTo, changePassword, logout } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mField[0m, [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m
+  [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m10 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/promotion/page.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m9 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/reports/page.tsx:20:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m18 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m19 |[0m [36mimport[0m { computeClassResults, fmtDate, gradeFor, getScale, todayStr, addDays } [36mfrom[0m [32m"@/lib...[0m
+[31m[1m>[0m [90m20 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPrintButton[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m21 |[0m
+  [90m22 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m23 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/results/page.tsx:18:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m16 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m17 |[0m [36mimport[0m { computeClassResults, fmtDate, getScale, [33mStudentResult[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m18 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m19 |[0m
+  [90m20 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m21 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/RestoreForm.tsx:4:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { useRef, useState } [36mfrom[0m [32m"react"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [36mexport[0m [36mfunction[0m [33mRestoreForm[0m() {
+  [90m7 |[0m   [36mconst[0m [busy, setBusy] = useState([36mfalse[0m);
+
+
+
+Import trace:
+  Server Component:
+    ./src/app/(app)/settings/RestoreForm.tsx
+    ./src/app/(app)/settings/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/page.tsx:9:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 8 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m 9 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mField[0m, [33mBadge[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m [36mimport[0m { [33mRestoreForm[0m } [36mfrom[0m [32m"./RestoreForm"[0m;
+  [90m11 |[0m
+  [90m12 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/[id]/page.tsx:8:85
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 6 |[0m ...[32m@/lib/auth"[0m;
+  [90m 7 |[0m ...
+[31m[1m>[0m [90m 8 |[0m ..., getScale } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m                                    [31m[1m^[0m
+[31m[1m>[0m [90m 9 |[0m ...[33mdal[0m, [33mModalCancel[0m, [33mConfirmButton[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m10 |[0m ...;
+  [90m11 |[0m ...
+  [90m12 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/page.tsx:7:41
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m ..., classes, sections, academicYears, attendance } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m 6 |[0m ...ole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m 7 |[0m ...[32mions/auth"[0m;
+  [90m   |[0m              [31m[1m^[0m
+[31m[1m>[0m [90m 8 |[0m ...[33mModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m ...
+  [90m10 |[0m ...[32mdynamic"[0m;
+  [90m11 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/subjects/page.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m
+  [90m8 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m9 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/teachers/page.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m ...equireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...lashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m ...[33mageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/comp...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m ...
+  [90m8 |[0m ...[36mst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m9 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/users/page.tsx:7:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m 5 |[0m [36mimport[0m { requireRole, hashPassword, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   [33mPageHead[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   [33mBadge[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   [33mFormModal[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   [33mModalCancel[0m,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   [33mField[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   [33mIcon[0m,
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   [33mEmpty[0m,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m16 |[0m
+  [90m17 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m18 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/marksheet/page.tsx:29:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m27 |[0m   getSchool,
+  [90m28 |[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+[31m[1m>[0m [90m29 |[0m [36mimport[0m { [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m30 |[0m
+  [90m31 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m32 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/page.tsx:6:1
+Error: Module not found: Can't resolve '@/components/ui'
+  [90m4 |[0m [36mimport[0m { getSessionUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { login } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { [33mIcon[0m, [33mDemoFill[0m, [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { [33mDEFAULT_SCHOOL[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m8 |[0m
+  [90m9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/academic-years/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { academicYears, enrollments, examinations } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/activity/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m [36mimport[0m { eq } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { auditLogs, users } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m5 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/attendance/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m2 |[0m [36mimport[0m { eq, and, sql, desc, inArray } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { students, enrollments, classes, sections, attendance, classSubjects, parentChildre...
+  [90m5 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/classes/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { classes, sections, subjects, teachers, classSubjects, enrollments } [36mfrom[0m [32m"@/db/sch...[0m
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/dashboard/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m2 |[0m [36mimport[0m { eq, and, sql, desc, gte, lte } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m {
+  [90m5 |[0m   students,
+  [90m6 |[0m   teachers,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/examinations/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { examinations, examSubjects, academicYears, classes, sections, subjects, classSubje...
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/marks/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { examinations, examSubjects, classes, subjects, students, enrollments, classSubject...
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { notes, classes, sections, subjects, users, enrollments, classSubjects, parentChild...
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notices/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { notices, classes, sections, users, enrollments, classSubjects, parentChildren } [36mfr..[0m.
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/profile/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { users, students } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo, changePassword, logout } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/promotion/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, asc, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { classes, sections, students, enrollments, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/reports/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m {
+  [90m4 |[0m   students,
+  [90m5 |[0m   teachers,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/results/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m2 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m {
+  [90m5 |[0m   examinations,
+  [90m6 |[0m   examSubjects,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/page.tsx:4:1
+Error: Module not found: Can't resolve '@/db'
+  [90m2 |[0m [36mimport[0m [33mImage[0m [36mfrom[0m [32m"next/image"[0m;
+  [90m3 |[0m [36mimport[0m { eq } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { settings [36mas[0m settingsTable, gradingScale } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m6 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/[id]/page.tsx:3:65
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m ﻿[36mimport[0m [33mLink[0m [36mfrom[0m [32m"next/link"[0m;
+  [90m2 |[0m [36mimport[0m { notFound, redirect } [36mfrom[0m [32m"next/navigation"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { eq, and, desc, sql, isNull, inArray } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m  |[0m                                                                 [31m[1m^[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { students, enrollments, classes, sections, academicYears, attendance, examinations,...
+  [90m6 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/page.tsx:3:60
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m ﻿[36mimport[0m [33mStudentClassSectionFields[0m [36mfrom[0m [32m"@/components/student-class-section-fields"[0m;[36mimport[0m [33mLi..[0m.
+  [90m2 |[0m [36mimport[0m { redirect } [36mfrom[0m [32m"next/navigation"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { eq, and, sql, isNull, inArray } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m  |[0m                                                            [31m[1m^[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { students, enrollments, classes, sections, academicYears, attendance } [36mfrom[0m [32m"@/db/s...[0m
+  [90m6 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/subjects/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { subjects, classSubjects, examSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/teachers/page.tsx:2:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { teachers, classSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/users/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db'
+  [90m1 |[0m
+  [90m2 |[0m [36mimport[0m { eq, isNull } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { users, students, teachers, sessions } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m5 |[0m [36mimport[0m { requireRole, hashPassword, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/data/route.ts:4:1
+Error: Module not found: Can't resolve '@/db'
+  [90m2 |[0m [36mimport[0m { [33mNextResponse[0m } [36mfrom[0m [32m"next/server"[0m;
+  [90m3 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m {
+  [90m6 |[0m   users,
+  [90m7 |[0m   parentChildren,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/health/route.ts:1:1
+Error: Module not found: Can't resolve '@/db'
+[31m[1m>[0m [90m1 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m2 |[0m [36mimport[0m { sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m3 |[0m
+  [90m4 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/upload/route.ts:6:1
+Error: Module not found: Can't resolve '@/db'
+  [90m4 |[0m [36mimport[0m { promises [36mas[0m fs } [36mfrom[0m [32m"fs"[0m;
+  [90m5 |[0m [36mimport[0m path [36mfrom[0m [32m"path"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { notes, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m8 |[0m [36mimport[0m { getSessionUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m9 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/marksheet/page.tsx:7:1
+Error: Module not found: Can't resolve '@/db'
+  [90m 5 |[0m [36mimport[0m { notFound, redirect } [36mfrom[0m [32m"next/navigation"[0m;
+  [90m 6 |[0m [36mimport[0m { eq, and, sql, inArray, isNull, or } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m [36mimport[0m {
+  [90m 9 |[0m   examinations,
+  [90m10 |[0m   examSubjects,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/academic-years/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m [36mimport[0m { eq, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { academicYears, enrollments, examinations } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/activity/page.tsx:4:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m2 |[0m [36mimport[0m { eq } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { auditLogs, users } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mEmpty[0m, [33mAvatar[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/attendance/page.tsx:4:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m2 |[0m ...l, desc, inArray } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m3 |[0m ...[32m@/db"[0m;
+[31m[1m>[0m [90m4 |[0m ...nrollments, classes, sections, attendance, classSubjects, parentChildren, academicYears ..[36m.[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m ..., requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m6 |[0m ...[36mrom[0m [32m"@/actions/auth"[0m;
+  [90m7 |[0m ...ct, fmtDate, todayStr, addDays, getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/classes/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m ...[36mrt[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m ...[36mrt[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m ...[36mrt[0m { classes, sections, subjects, teachers, classSubjects, enrollments } [36mfrom[0m [32m"@/db/sche...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m ...[36mrt[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...[36mrt[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m ...[36mrt[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mConfirmButton[0m, [33mField[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/dashboard/page.tsx:4:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m 2 |[0m [36mimport[0m { eq, and, sql, desc, gte, lte } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m 3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m 4 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   students,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   teachers,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   classes,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   sections,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   enrollments,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   attendance,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   examinations,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   examSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   notes,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   notices,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   auditLogs,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   users,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   parentChildren,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   academicYears,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   classSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   subjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m22 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m23 |[0m [36mimport[0m { attendancePct, computeClassResults, fmtDate, todayStr, addDays, getScale } [36mfrom[0m [32m"...[0m
+  [90m24 |[0m [36mimport[0m { [33mStat[0m, [33mDonut[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPageHead[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/examinations/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m ...[36mm[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m ...
+[31m[1m>[0m [90m3 |[0m ...ts, academicYears, classes, sections, subjects, classSubjects, teachers, enrollments, pa...
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m ..., logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...[32ms/auth"[0m;
+  [90m6 |[0m ...ys } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/marks/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m ...[36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m ...[32m"[0m;
+[31m[1m>[0m [90m3 |[0m ...xamSubjects, classes, subjects, students, enrollments, classSubjects, marks, academicYea...
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m ...quireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...[32m"@/actions/auth"[0m;
+  [90m6 |[0m ...[32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m ..., desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m ...[32m/db"[0m;
+[31m[1m>[0m [90m3 |[0m ...es, sections, subjects, users, enrollments, classSubjects, parentChildren, academicYears...
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m ... requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...[36mom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m ...[36mom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notices/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m ...q, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m ...b } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m ...otices, classes, sections, users, enrollments, classSubjects, parentChildren } [36mfrom[0m [32m"@/d...[0m
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m ...equireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m ...lashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m ...mtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/profile/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m [36mimport[0m { eq } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { users, students } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo, changePassword, logout } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/promotion/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m [36mimport[0m { eq, and, sql, asc, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { classes, sections, students, enrollments, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/reports/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m 1 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m 2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m 3 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 4 |[0m   students,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   teachers,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   classes,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   sections,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   enrollments,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   attendance,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   examinations,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   examSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   subjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   classSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   academicYears,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   notes,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   marks,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m18 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m19 |[0m [36mimport[0m { computeClassResults, fmtDate, gradeFor, getScale, todayStr, addDays } [36mfrom[0m [32m"@/lib...[0m
+  [90m20 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPrintButton[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/results/page.tsx:4:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m 2 |[0m [36mimport[0m { eq, and, sql, desc } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m 3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m 4 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 5 |[0m   examinations,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   examSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   classes,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   subjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   classSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   enrollments,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   students,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   parentChildren,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   academicYears,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m15 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m16 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m17 |[0m [36mimport[0m { computeClassResults, fmtDate, getScale, [33mStudentResult[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/page.tsx:5:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m3 |[0m [36mimport[0m { eq } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { settings [36mas[0m settingsTable, gradingScale } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m8 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/[id]/page.tsx:4:25
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m2 |[0m ...[32mation"[0m;
+  [90m3 |[0m ... [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m4 |[0m ...
+  [90m  |[0m    [31m[1m^[0m
+[31m[1m>[0m [90m5 |[0m ...ons, academicYears, attendance, examinations, examSubjects, notes, parentChildren, subje...
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m ...[36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m7 |[0m ...
+  [90m8 |[0m ...mtDate, getScale } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/page.tsx:4:26
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m2 |[0m ...t } [36mfrom[0m [32m"next/navigation"[0m;
+  [90m3 |[0m ..., sql, isNull, inArray } [36mfrom[0m [32m"drizzle-orm"[0m;
+[31m[1m>[0m [90m4 |[0m ...[36mom[0m [32m"@/db"[0m;
+  [90m  |[0m             [31m[1m^[0m
+[31m[1m>[0m [90m5 |[0m ...s, enrollments, classes, sections, academicYears, attendance } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m ...User, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m7 |[0m ... } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m8 |[0m ...[33md[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components...[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/subjects/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { subjects, classSubjects, examSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/teachers/page.tsx:3:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m1 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { teachers, classSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/users/page.tsx:4:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m2 |[0m [36mimport[0m { eq, isNull } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { users, students, teachers, sessions } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { requireRole, hashPassword, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m7 |[0m [36mimport[0m {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/data/route.ts:5:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m 3 |[0m [36mimport[0m { eq, and, sql } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m 4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m 5 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 6 |[0m   users,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m 7 |[0m   parentChildren,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 8 |[0m   students,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   teachers,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   classes,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   sections,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   subjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   academicYears,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   classSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   enrollments,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   attendance,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   examinations,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   examSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   marks,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m   notes,
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+[31m[1m>[0m [90m21 |[0m   notices,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m22 |[0m   gradingScale,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   settings,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   auditLogs,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m26 |[0m [36mimport[0m { getSessionUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m27 |[0m [36mimport[0m { computeClassResults, getScale } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m28 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/upload/route.ts:7:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m 5 |[0m [36mimport[0m path [36mfrom[0m [32m"path"[0m;
+  [90m 6 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { notes, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m [36mimport[0m { getSessionUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m 9 |[0m
+  [90m10 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/marksheet/page.tsx:8:1
+Error: Module not found: Can't resolve '@/db/schema'
+  [90m 6 |[0m [36mimport[0m { eq, and, sql, inArray, isNull, or } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m 7 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m 9 |[0m   examinations,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m10 |[0m   examSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m11 |[0m   classes,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m12 |[0m   sections,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m13 |[0m   students,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m14 |[0m   enrollments,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m15 |[0m   academicYears,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m16 |[0m   parentChildren,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m17 |[0m   classSubjects,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m18 |[0m   teachers,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m19 |[0m   settings [36mas[0m settingsTable,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m20 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m21 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m22 |[0m [36mimport[0m {
+  [90m23 |[0m   attendancePct,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/academic-years/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { academicYears, enrollments, examinations } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m7 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/activity/page.tsx:5:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m4 |[0m [36mimport[0m { auditLogs, users } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mEmpty[0m, [33mAvatar[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/attendance/page.tsx:5:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m4 |[0m [36mimport[0m { students, enrollments, classes, sections, attendance, classSubjects, parentChildre...
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m7 |[0m [36mimport[0m { attendancePct, fmtDate, todayStr, addDays, getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m8 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mDonut[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/classes/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { classes, sections, subjects, teachers, classSubjects, enrollments } [36mfrom[0m [32m"@/db/sch...[0m
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mConfirmButton[0m, [33mField[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/dashboard/page.tsx:22:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m20 |[0m   subjects,
+  [90m21 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m22 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m23 |[0m [36mimport[0m { attendancePct, computeClassResults, fmtDate, todayStr, addDays, getScale } [36mfrom[0m [32m"...[0m
+  [90m24 |[0m [36mimport[0m { [33mStat[0m, [33mDonut[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPageHead[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m25 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/examinations/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { examinations, examSubjects, academicYears, classes, sections, subjects, classSubje...
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate, todayStr, addDays } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/layout.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m [33mSidebar[0m, { [33mNavItem[0m } [36mfrom[0m [32m"@/components/Sidebar"[0m;
+  [90m3 |[0m [36mimport[0m { [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/marks/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { examinations, examSubjects, classes, subjects, students, enrollments, classSubject...
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { notes, classes, sections, subjects, users, enrollments, classSubjects, parentChild...
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notices/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { notices, classes, sections, users, enrollments, classSubjects, parentChildren } [36mfr..[0m.
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/profile/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { users, students } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo, changePassword, logout } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mField[0m, [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/promotion/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { classes, sections, students, enrollments, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/reports/page.tsx:18:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m16 |[0m   marks,
+  [90m17 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m18 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m19 |[0m [36mimport[0m { computeClassResults, fmtDate, gradeFor, getScale, todayStr, addDays } [36mfrom[0m [32m"@/lib...[0m
+  [90m20 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPrintButton[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m21 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/results/page.tsx:15:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m13 |[0m   academicYears,
+  [90m14 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m15 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m16 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m17 |[0m [36mimport[0m { computeClassResults, fmtDate, getScale, [33mStudentResult[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m18 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/page.tsx:6:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m4 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m5 |[0m [36mimport[0m { settings [36mas[0m settingsTable, gradingScale } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m8 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m9 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mField[0m, [33mBadge[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/[id]/page.tsx:5:158
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m3 |[0m ...;
+  [90m4 |[0m ...
+[31m[1m>[0m [90m5 |[0m ... attendance, examinations, examSubjects, notes, parentChildren, subjects } [36mfrom[0m [32m"@/db/sc...[0m
+  [90m  |[0m                                                                                                [31m[1m[0m
+[31m[1m>[0m [90m6 |[0m ...
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m ...
+  [90m8 |[0m ...[36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m9 |[0m ...[33mcel[0m, [33mConfirmButton[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/page.tsx:5:98
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m3 |[0m ...ray } [36mfrom[0m [32m"drizzle-orm"[0m;
+  [90m4 |[0m ...
+[31m[1m>[0m [90m5 |[0m ...sses, sections, academicYears, attendance } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m  |[0m                                                                  [31m[1m^[0m
+[31m[1m>[0m [90m6 |[0m ...logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m ...[32mauth"[0m;
+  [90m8 |[0m ..., [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m9 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/subjects/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { subjects, classSubjects, examSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/teachers/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m3 |[0m [36mimport[0m { teachers, classSubjects } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m7 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/users/page.tsx:5:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m3 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m4 |[0m [36mimport[0m { users, students, teachers, sessions } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { requireRole, hashPassword, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m7 |[0m [36mimport[0m {
+  [90m8 |[0m   [33mPageHead[0m,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/data/route.ts:26:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m24 |[0m   auditLogs,
+  [90m25 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m26 |[0m [36mimport[0m { getSessionUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m27 |[0m [36mimport[0m { computeClassResults, getScale } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m28 |[0m
+  [90m29 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/upload/route.ts:8:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m 6 |[0m [36mimport[0m { db } [36mfrom[0m [32m"@/db"[0m;
+  [90m 7 |[0m [36mimport[0m { notes, academicYears } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m { getSessionUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m
+  [90m10 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m11 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/marksheet/page.tsx:21:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m19 |[0m   settings [36mas[0m settingsTable,
+  [90m20 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+[31m[1m>[0m [90m21 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m22 |[0m [36mimport[0m {
+  [90m23 |[0m   attendancePct,
+  [90m24 |[0m   computeClassResults,
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/page.tsx:4:1
+Error: Module not found: Can't resolve '@/lib/auth'
+  [90m2 |[0m [36mimport[0m [33mImage[0m [36mfrom[0m [32m"next/image"[0m;
+  [90m3 |[0m [36mimport[0m { redirect } [36mfrom[0m [32m"next/navigation"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { getSessionUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m [36mimport[0m { login } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m6 |[0m [36mimport[0m { [33mIcon[0m, [33mDemoFill[0m, [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m7 |[0m [36mimport[0m { [33mDEFAULT_SCHOOL[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/activity/page.tsx:6:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m4 |[0m [36mimport[0m { auditLogs, users } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m5 |[0m [36mimport[0m { requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mEmpty[0m, [33mAvatar[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m
+  [90m9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/attendance/page.tsx:7:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m 5 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { attendancePct, fmtDate, todayStr, addDays, getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mDonut[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m 9 |[0m
+  [90m10 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/dashboard/page.tsx:23:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m21 |[0m ...[32m/db/schema"[0m;
+  [90m22 |[0m ...requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m23 |[0m ...attendancePct, computeClassResults, fmtDate, todayStr, addDays, getScale } [36mfrom[0m [32m"@/lib/...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m24 |[0m ...[33mStat[0m, [33mDonut[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPageHead[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m25 |[0m ...
+  [90m26 |[0m ...[36mnst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/examinations/page.tsx:6:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { fmtDate, todayStr, addDays } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m8 |[0m
+  [90m9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/layout.tsx:5:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m3 |[0m [36mimport[0m { [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m4 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m5 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m6 |[0m
+  [90m7 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m8 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notes/page.tsx:6:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m4 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m [36mimport[0m { [33mFileNoteForm[0m, [33mReadNote[0m } [36mfrom[0m [32m"./FileNoteForm"[0m;
+  [90m9 |[0m [36mimport[0m { [33mNoteForm[0m } [36mfrom[0m [32m"./NoteForm"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/notices/page.tsx:6:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mField[0m, [33mConfirmButton[0m, [33mIcon[0m, [33mEmpty[0m } [36mfrom[0m [32m...[0m
+  [90m8 |[0m
+  [90m9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/profile/page.tsx:6:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m4 |[0m [36mimport[0m { requireUser, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m5 |[0m [36mimport[0m { flashTo, changePassword, logout } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m6 |[0m [36mimport[0m { fmtDate } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m7 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mField[0m, [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m8 |[0m
+  [90m9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/reports/page.tsx:19:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m17 |[0m ...[32m"@/db/schema"[0m;
+  [90m18 |[0m ...{ requireRole } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m19 |[0m ...{ computeClassResults, fmtDate, gradeFor, getScale, todayStr, addDays } [36mfrom[0m [32m"@/lib/gra...[0m
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m20 |[0m ...{ [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mPrintButton[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m21 |[0m ...
+  [90m22 |[0m ...[36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/results/page.tsx:17:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m15 |[0m [36mimport[0m { requireUser, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m16 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m17 |[0m [36mimport[0m { computeClassResults, fmtDate, getScale, [33mStudentResult[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m18 |[0m [36mimport[0m { [33mPageHead[0m, [33mBadge[0m, [33mIcon[0m, [33mEmpty[0m, [33mField[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m19 |[0m
+  [90m20 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/settings/page.tsx:8:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m 6 |[0m [36mimport[0m { requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+  [90m 7 |[0m [36mimport[0m { flashTo } [36mfrom[0m [32m"@/actions/auth"[0m;
+[31m[1m>[0m [90m 8 |[0m [36mimport[0m { getSchool } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m [36mimport[0m { [33mPageHead[0m, [33mIcon[0m, [33mField[0m, [33mBadge[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m10 |[0m [36mimport[0m { [33mRestoreForm[0m } [36mfrom[0m [32m"./RestoreForm"[0m;
+  [90m11 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/(app)/students/[id]/page.tsx:7:40
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m 5 |[0m ... enrollments, classes, sections, academicYears, attendance, examinations, examSubjects,...
+  [90m 6 |[0m ...er, requireRole, logAudit } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m 7 |[0m ... [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m   |[0m                         [31m[1m^[0m
+[31m[1m>[0m [90m 8 |[0m ...ePct, computeClassResults, fmtDate, getScale } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m    [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 9 |[0m ... [33mBadge[0m, [33mDonut[0m, [33mIcon[0m, [33mEmpty[0m, [33mFormModal[0m, [33mModalCancel[0m, [33mConfirmButton[0m } [36mfrom[0m [32m"@/components/...[0m
+  [90m10 |[0m ...[33mrm[0m, deleteStudent } [36mfrom[0m [32m"../page"[0m;
+  [90m11 |[0m ...
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/api/data/route.ts:27:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m25 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m26 |[0m [36mimport[0m { getSessionUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m27 |[0m [36mimport[0m { computeClassResults, getScale } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m28 |[0m
+  [90m29 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m30 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/marksheet/page.tsx:22:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m20 |[0m } [36mfrom[0m [32m"@/db/schema"[0m;
+  [90m21 |[0m [36mimport[0m { requireUser } [36mfrom[0m [32m"@/lib/auth"[0m;
+[31m[1m>[0m [90m22 |[0m [36mimport[0m {
+  [90m   |[0m [31m[1m^^^^^^^[0m
+[31m[1m>[0m [90m23 |[0m   attendancePct,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m24 |[0m   computeClassResults,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m25 |[0m   fmtDate,
+  [90m   |[0m [31m[1m^^^^^^^^^^[0m
+[31m[1m>[0m [90m26 |[0m   getScale,
+  [90m   |[0m [31m[1m^^^^^^^^^^^[0m
+[31m[1m>[0m [90m27 |[0m   getSchool,
+  [90m   |[0m [31m[1m^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m28 |[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m29 |[0m [36mimport[0m { [33mIcon[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+  [90m30 |[0m
+  [90m31 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+./src/app/page.tsx:7:1
+Error: Module not found: Can't resolve '@/lib/grading'
+  [90m 5 |[0m [36mimport[0m { login } [36mfrom[0m [32m"@/actions/auth"[0m;
+  [90m 6 |[0m [36mimport[0m { [33mIcon[0m, [33mDemoFill[0m, [33mFlash[0m } [36mfrom[0m [32m"@/components/ui"[0m;
+[31m[1m>[0m [90m 7 |[0m [36mimport[0m { [33mDEFAULT_SCHOOL[0m } [36mfrom[0m [32m"@/lib/grading"[0m;
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m 8 |[0m
+  [90m 9 |[0m [36mexport[0m [36mconst[0m dynamic = [32m"force-dynamic"[0m;
+  [90m10 |[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    ... collapsed 127 duplicate lines matching above 1 lines 127 times...
