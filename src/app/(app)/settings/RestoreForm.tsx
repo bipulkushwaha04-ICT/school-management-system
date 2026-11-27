@@ -11,7 +11,7 @@ export function RestoreForm() {
   async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (!confirm(`Restore from "${file.name}"? This replaces ALL current data.`)) return;
+    if (!confirm(`Restore from "${file.name}"? This replaces all of this school's current data and signs everyone in the school out.`)) return;
     setBusy(true);
     setMsg(null);
     try {

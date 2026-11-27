@@ -1,12 +1,14 @@
-﻿"use server";
+"use server";
 
 import { and, eq, isNull, ne } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { db } from "@/db";
-import { users, sessions, students } from "@/db/schema";
+import { users, sessions, students, schools } from "@/db/schema";
 import { createSession, destroySession, hashPassword, logAudit, requireUser, verifyPassword } from "@/lib/auth";
 import { isPlatformAdminUser } from "@/lib/platform-auth";
+
+const DUMMY_HASH = hashPassword("timing-equaliser-not-a-real-password");
 
 export async function flashTo(path: string, msg?: string, err = false) {
   if (!msg) redirect(path);
@@ -17,12 +19,23 @@ export async function flashTo(path: string, msg?: string, err = false) {
 export async function login(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  if (!email || !password) redirect("/login?err=Enter your email and password.");
+  const fail = (msg: string) => redirect(`/login?err=${encodeURIComponent(msg)}`);
+  if (!email || !password || password.length > 256) fail("Enter your email and password.");
 
   const rows = await db.select().from(users).where(eq(users.email, email)).limit(1);
   const user = rows[0];
-  if (!user || !user.isActive || !verifyPassword(password, user.passwordHash)) {
-    redirect("/login?err=Invalid email or password. Please try again.");
+  // Always run the hash check so response time doesn't reveal which emails exist.
+  const passwordOk = verifyPassword(password, user?.passwordHash ?? DUMMY_HASH);
+  if (!user || !user.isActive || !passwordOk) {
+    fail("Invalid email or password. Please try again.");
+  }
+  const [school] = await db
+    .select({ status: schools.status })
+    .from(schools)
+    .where(eq(schools.id, user.schoolId))
+    .limit(1);
+  if (school?.status !== "active") {
+    fail("Your school's account is not active. Please contact the platform administrator.");
   }
   if (user.studentId) {
     const [activeStudent] = await db
@@ -31,7 +44,7 @@ export async function login(formData: FormData) {
       .where(and(eq(students.id, user.studentId), isNull(students.deletedAt)))
       .limit(1);
     if (!activeStudent) {
-      redirect("/login?err=Invalid email or password. Please try again.");
+      fail("Invalid email or password. Please try again.");
     }
   }
   await db.update(users).set({ lastLoginAt: new Date() }).where(eq(users.id, user.id));
@@ -64,8 +77,8 @@ export async function changePassword(formData: FormData) {
   const next = String(formData.get("next") ?? "");
   const confirm = String(formData.get("confirm") ?? "");
 
-  if (next.length < 6) {
-    await flashTo("/profile", "New password must be at least 6 characters.", true);
+  if (next.length < 8) {
+    await flashTo("/profile", "New password must be at least 8 characters.", true);
   }
 
   if (next !== confirm) {

@@ -1,6 +1,6 @@
 
 import { NextResponse } from "next/server";
-import { eq, and, sql } from "drizzle-orm";
+import { eq, and, inArray, ne, sql, getTableColumns } from "drizzle-orm";
 import { db } from "@/db";
 import {
   users,
@@ -30,21 +30,53 @@ import {
   feePayments,
 } from "@/db/schema";
 import { getSessionUser } from "@/lib/auth";
+import { PLATFORM_OWNER_USER_ID } from "@/lib/platform-auth";
 import { currentSchoolId } from "@/lib/tenant";
 import { computeClassResults, getScale } from "@/lib/grading";
+import { csvCell, toCsv as toCsvLines } from "@/lib/csv";
 
 export const dynamic = "force-dynamic";
 
-function csvEscape(v: unknown): string {
-  const s = String(v ?? "");
-  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+/** Settings keys belonging to one school (see settingKey in lib/grading). */
+function isTenantSettingKey(key: string, schoolId: number): boolean {
+  if (schoolId === 1) return !/^s\d+:/.test(key);
+  return key.startsWith(`s${schoolId}:`);
 }
 
+/**
+ * Maps a JSON backup row back onto a table's columns: unknown keys are
+ * dropped, timestamps become Dates, and school_id is forced to this tenant.
+ */
+function prepareRow(table: any, raw: unknown, schoolId: number, name: string): Record<string, unknown> {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    throw new Error(`Invalid row in ${name}.`);
+  }
+  const src = raw as Record<string, unknown>;
+  const cols = getTableColumns(table) as Record<string, any>;
+  const row: Record<string, unknown> = {};
+  for (const [prop, col] of Object.entries(cols)) {
+    if (!(prop in src)) continue;
+    let value = src[prop];
+    if (value != null && col.columnType === "PgTimestamp" && typeof value === "string") {
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) throw new Error(`Invalid date in ${name}.${prop}.`);
+      value = d;
+    }
+    row[prop] = value;
+  }
+  if ("schoolId" in cols) {
+    if (src.schoolId != null && Number(src.schoolId) !== schoolId) {
+      throw new Error(`The ${name} data belongs to a different school.`);
+    }
+    row.schoolId = schoolId;
+  }
+  return row;
+}
+
+const csvEscape = csvCell;
+
 function toCsv(headers: string[], rows: unknown[][]): string {
-  return [
-    headers.map(csvEscape).join(","),
-    ...rows.map((r) => r.map(csvEscape).join(",")),
-  ].join("\n");
+  return toCsvLines(headers, rows, "\n");
 }
 
 async function csvResponse(content: string, filename: string) {
@@ -112,7 +144,7 @@ export async function GET(req: Request) {
 
     for (const [name, table] of tables) {
       out[name] = name === "settings"
-        ? await db.select().from(table as any)
+        ? (await db.select().from(settings)).filter((r) => isTenantSettingKey(r.key, schoolId))
         : await db.select().from(table as any).where(eq((table as any).schoolId, schoolId));
     }
 
@@ -120,6 +152,7 @@ export async function GET(req: Request) {
       JSON.stringify(
         {
           app: "sjjs-sms",
+          schoolId,
           exportedAt: new Date().toISOString(),
           data: out,
         },
@@ -345,7 +378,7 @@ export async function GET(req: Request) {
   }
 
   if (type === "results") {
-    const scale = await getScale();
+    const scale = await getScale(schoolId);
 
     const [exam] = await db
       .select()
@@ -370,7 +403,7 @@ export async function GET(req: Request) {
     const out: unknown[][] = [];
 
     for (const c of clsList) {
-      const res = await computeClassResults(exam.id, c.id, scale);
+      const res = await computeClassResults(exam.id, c.id, scale, schoolId);
 
       if (res.length === 0) continue;
 
@@ -431,15 +464,6 @@ export async function POST(req: Request) {
 
   const schoolId = await currentSchoolId();
 
-  // Restore swaps global settings/sequences and every row in the backup, so a
-  // per-school restore cannot be made safe. Only the original school may restore.
-  if (schoolId !== 1) {
-    return NextResponse.json(
-      { error: "Restore is only supported for the default school (school 1)." },
-      { status: 403, headers: { "Cache-Control": "private, no-store" } }
-    );
-  }
-
   const url = new URL(req.url);
 
   if (url.searchParams.get("op") !== "restore") {
@@ -467,42 +491,23 @@ export async function POST(req: Request) {
     );
   }
 
-  if (payload?.app !== "sjjs-sms" || !payload.data) {
+  if (payload?.app !== "sjjs-sms" || !payload.data || typeof payload.data !== "object") {
     return NextResponse.json(
       { error: "This file is not a SJJS SMS backup." },
       { status: 400 }
     );
   }
 
-  // Session tokens are deliberately not backed up; invalidate all current sessions on restore.
-  const deleteOrder: [string, any][] = [
-    ["fee_payments", feePayments],
-    ["fee_invoice_items", feeInvoiceItems],
-    ["fee_invoices", feeInvoices],
-    ["fee_structures", feeStructures],
-    ["fee_categories", feeCategories],
-    ["marks", marks],
-    ["exam_subjects", examSubjects],
-    ["attendance", attendance],
-    ["enrollments", enrollments],
-    ["class_subjects", classSubjects],
-    ["parent_children", parentChildren],
-    ["notes", notes],
-    ["notices", notices],
-    ["examinations", examinations],
-    ["grading_scale", gradingScale],
-    ["settings", settings],
-    ["audit_logs", auditLogs],
-    ["users", users],
-    ["teachers", teachers],
-    ["students", students],
-    ["subjects", subjects],
-    ["sections", sections],
-    ["classes", classes],
-    ["academic_years", academicYears],
-  ];
+  if (payload.schoolId !== undefined && Number(payload.schoolId) !== schoolId) {
+    return NextResponse.json(
+      { error: "This backup belongs to a different school." },
+      { status: 400 }
+    );
+  }
 
-  const insertOrder: [string, any][] = [
+  // Tenant tables in foreign-key order. Every delete and insert is scoped to
+  // the signed-in admin's school, so other schools are never touched.
+  const tenantTables: [string, any][] = [
     ["academic_years", academicYears],
     ["classes", classes],
     ["sections", sections],
@@ -520,7 +525,6 @@ export async function POST(req: Request) {
     ["notes", notes],
     ["notices", notices],
     ["grading_scale", gradingScale],
-    ["settings", settings],
     ["audit_logs", auditLogs],
     ["fee_categories", feeCategories],
     ["fee_structures", feeStructures],
@@ -529,23 +533,72 @@ export async function POST(req: Request) {
     ["fee_payments", feePayments],
   ];
 
-  const operations: any[] = [db.delete(sessions)];
-  const present = new Set<string>();
-  let tables = 0;
+  // A partial backup would orphan rows, so every tenant table must be present.
+  const missing = tenantTables
+    .map(([name]) => name)
+    .filter((name) => !Array.isArray(payload.data[name]));
+  if (missing.length > 0) {
+    return NextResponse.json(
+      { error: `Backup is incomplete. Missing: ${missing.join(", ")}.` },
+      { status: 400 }
+    );
+  }
 
-  for (const [name, table] of deleteOrder) {
-    if (Array.isArray(payload.data[name])) {
-      operations.push(db.delete(table));
-      present.add(name);
-      tables++;
+  const prepared: [string, any, Record<string, unknown>[]][] = [];
+  try {
+    for (const [name, table] of tenantTables) {
+      const rows = (payload.data[name] as unknown[]).map((raw) =>
+        prepareRow(table, raw, schoolId, name)
+      );
+      // The platform owner account is managed outside school restores.
+      prepared.push([
+        name,
+        table,
+        name === "users"
+          ? rows.filter((r) => r.id !== PLATFORM_OWNER_USER_ID)
+          : rows,
+      ]);
+    }
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Invalid backup rows." },
+      { status: 400 }
+    );
+  }
+
+  const settingRows = Array.isArray(payload.data.settings)
+    ? (payload.data.settings as { key?: unknown; value?: unknown }[])
+        .filter((r) => typeof r?.key === "string" && isTenantSettingKey(r.key, schoolId))
+        .map((r) => ({ key: r.key as string, value: r.value == null ? null : String(r.value) }))
+    : [];
+
+  const schoolUserIds = db
+    .select({ id: users.id })
+    .from(users)
+    .where(eq(users.schoolId, schoolId));
+
+  const operations: any[] = [
+    db.delete(sessions).where(inArray(sessions.userId, schoolUserIds)),
+  ];
+
+  for (const [name, table] of [...tenantTables].reverse()) {
+    operations.push(
+      name === "users"
+        ? db.delete(users).where(and(eq(users.schoolId, schoolId), ne(users.id, PLATFORM_OWNER_USER_ID)))
+        : db.delete(table).where(eq(table.schoolId, schoolId))
+    );
+  }
+
+  for (const [, table, rows] of prepared) {
+    for (let k = 0; k < rows.length; k += 500) {
+      operations.push(db.insert(table).values(rows.slice(k, k + 500) as any));
     }
   }
 
-  for (const [name, table] of insertOrder) {
-    const rows = payload.data[name];
-    if (present.has(name) && Array.isArray(rows) && rows.length > 0) {
-      operations.push(db.insert(table).values(rows as any));
-    }
+  for (const row of settingRows) {
+    operations.push(
+      db.insert(settings).values(row).onConflictDoUpdate({ target: settings.key, set: { value: row.value } })
+    );
   }
 
   // Restore serial counters after explicit IDs are inserted from the backup.
@@ -562,8 +615,19 @@ export async function POST(req: Request) {
     )));
   }
 
-  // Neon HTTP batch executes the statements as one database transaction.
-  await db.batch(operations as any);
+  // Neon HTTP batch executes the statements as one database transaction:
+  // any failure (for example an id owned by another school) rolls it all back.
+  try {
+    await db.batch(operations as any);
+  } catch (error) {
+    console.error("Restore failed", error);
+    return NextResponse.json(
+      { error: "Restore failed and nothing was changed. The backup may not match this school." },
+      { status: 400, headers: { "Cache-Control": "private, no-store" } }
+    );
+  }
+
+  const tables = tenantTables.length;
 
   return NextResponse.json(
     { ok: true, tables },

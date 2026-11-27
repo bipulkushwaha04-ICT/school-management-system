@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { eq, and, desc, sql, isNull, inArray } from "drizzle-orm";
 import { db } from "@/db";
@@ -54,15 +54,15 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
       .select({ title: notes.title, subject: subjects.name, created: notes.createdAt, type: notes.type, url: notes.url, fileName: notes.fileName, noteId: notes.id })
       .from(notes)
       .leftJoin(subjects, and(eq(subjects.id, notes.subjectId), eq(subjects.schoolId, schoolId)))
-      .where(and(sql`${notes.classId} in (select class_id from enrollments where student_id = ${studentId} and status = 'active')`, eq(notes.schoolId, schoolId)))
+      .where(and(sql`${notes.classId} in (select class_id from enrollments where student_id = ${studentId} and school_id = ${schoolId} and status = 'active')`, eq(notes.schoolId, schoolId)))
       .orderBy(desc(notes.createdAt))
       .limit(5),
     db.select().from(attendance).where(and(eq(attendance.studentId, studentId), eq(attendance.schoolId, schoolId))).orderBy(desc(attendance.attDate)).limit(14),
   ]);
 
   const active = enrollmentsAll.find((e) => e.status === "active");
-  const att = await attendancePct(studentId);
-  const scale = await getScale();
+  const att = await attendancePct(studentId, undefined, undefined, schoolId);
+  const scale = await getScale(schoolId);
 
   // published exams for the student's active class
   let resultRows: { examName: string; endDate: string; examId: number; gpa: string; pct: number | null; status: string }[] = [];
@@ -72,11 +72,11 @@ export default async function StudentDetailPage({ params }: { params: Promise<{ 
       const exams = await db
         .select({ name: examinations.name, id: examinations.id, endDate: examinations.endDate })
         .from(examinations)
-        .where(and(eq(examinations.status, "published"), sql`${examinations.id} in (select exam_id from exam_subjects where class_id = ${activeClassId})`, eq(examinations.schoolId, schoolId)))
+        .where(and(eq(examinations.status, "published"), sql`${examinations.id} in (select exam_id from exam_subjects where class_id = ${activeClassId} and school_id = ${schoolId})`, eq(examinations.schoolId, schoolId)))
         .orderBy(desc(examinations.endDate))
         .limit(6);
       for (const e of exams) {
-        const res = await computeClassResults(e.id, activeClassId, scale);
+        const res = await computeClassResults(e.id, activeClassId, scale, schoolId);
         const mine = res.find((r) => r.studentId === studentId);
         if (mine) {
           resultRows.push({ examName: e.name, endDate: e.endDate!, examId: e.id, gpa: mine.gpaDisplay, pct: mine.pct, status: mine.result });

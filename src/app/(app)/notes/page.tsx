@@ -26,6 +26,29 @@ export async function saveNote(formData: FormData) {
   if (!title) await flashTo("/notes", "Title is required.", true);
   if (type === "text" && !content) await flashTo("/notes", "Note content is required.", true);
   if (type === "link" && !url) await flashTo("/notes", "Link URL is required.", true);
+  if (!["text", "link"].includes(type)) await flashTo("/notes", "Unsupported note type.", true);
+  if (type === "link" && !/^https?:\/\/[^\s]+$/i.test(url ?? "")) {
+    await flashTo("/notes", "Links must start with http:// or https://.", true);
+  }
+  for (const v of [classId, sectionId, subjectId]) {
+    if (v !== null && (!Number.isInteger(v) || v <= 0)) await flashTo("/notes", "Invalid class, section or subject.", true);
+  }
+  if ((sectionId || subjectId) && !classId) await flashTo("/notes", "Select a class before a section or subject.", true);
+  if (classId) {
+    const [c] = await db.select({ id: classes.id }).from(classes).where(and(eq(classes.id, classId), eq(classes.schoolId, schoolId))).limit(1);
+    if (!c) await flashTo("/notes", "Selected class does not exist.", true);
+  }
+  if (sectionId) {
+    const [sec] = await db.select({ id: sections.id }).from(sections).where(and(eq(sections.id, sectionId), eq(sections.classId, classId!), eq(sections.schoolId, schoolId))).limit(1);
+    if (!sec) await flashTo("/notes", "Selected section does not belong to that class.", true);
+  }
+  if (subjectId) {
+    const [sub] = await db.select({ id: subjects.id }).from(subjects).where(and(eq(subjects.id, subjectId), eq(subjects.schoolId, schoolId))).limit(1);
+    if (!sub) await flashTo("/notes", "Selected subject does not exist.", true);
+  }
+  if (user.role === "teacher" && (!user.teacherId || !classId)) {
+    await flashTo("/notes", "Select one of your assigned classes.", true);
+  }
 
   // teachers can only publish to their assigned classes
   if (user.role === "teacher" && classId) {
@@ -57,6 +80,9 @@ export async function deleteNote(formData: FormData) {
       const full = path.join(process.cwd(), "public", row.url);
       if (full.startsWith(path.join(process.cwd(), "public"))) fs.unlinkSync(full);
     } catch {}
+  } else if (row.url && /^https:\/\/[^/]+\.public\.blob\.vercel-storage\.com\//.test(row.url) && process.env.BLOB_READ_WRITE_TOKEN) {
+    const { del } = await import("@vercel/blob");
+    await del(row.url).catch(() => undefined);
   }
   await db.delete(notes).where(and(eq(notes.id, id), eq(notes.schoolId, schoolId)));
   await logAudit(user.id, "Deleted note", "note", id, row.title);

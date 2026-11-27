@@ -43,7 +43,7 @@ export default async function PlatformUsersPage({
             </Field>
             <Field label="Name"><input name="name" required className="inp" /></Field>
             <Field label="Email"><input name="email" type="email" required className="inp" /></Field>
-            <Field label="Temporary password"><input name="password" type="password" minLength={6} required className="inp" /></Field>
+            <Field label="Temporary password"><input name="password" type="password" minLength={8} required className="inp" /></Field>
             <div className="flex justify-end gap-2">
               <ModalCancel />
               <button className="btn-primary btn-sm" type="submit">Create account</button>

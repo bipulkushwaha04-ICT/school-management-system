@@ -1,5 +1,5 @@
-﻿import "server-only";
-import { eq, and, sql } from "drizzle-orm";
+import "server-only";
+import { eq, and, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   gradingScale,
@@ -12,7 +12,9 @@ import {
   students,
   attendance,
   settings as settingsTable,
+  schools,
 } from "@/db/schema";
+import { DEFAULT_SCHOOL as DEFAULT_SCHOOL_INFO } from "@/db/defaults";
 
 /* ------------------------------ Grading scale ----------------------------- */
 
@@ -24,12 +26,28 @@ export type ScaleRow = {
   isFail: boolean;
 };
 
-export async function getScale(schoolId = 1): Promise<ScaleRow[]> {
+/** Default scale (same as the seed) used until a school configures its own. */
+export const DEFAULT_SCALE: ScaleRow[] = [
+  { grade: "A+", minPct: 90, maxPct: 100, points10: 40, isFail: false },
+  { grade: "A", minPct: 85, maxPct: 89, points10: 36, isFail: false },
+  { grade: "B+", minPct: 80, maxPct: 84, points10: 32, isFail: false },
+  { grade: "B", minPct: 75, maxPct: 79, points10: 28, isFail: false },
+  { grade: "C+", minPct: 70, maxPct: 74, points10: 24, isFail: false },
+  { grade: "C", minPct: 65, maxPct: 69, points10: 20, isFail: false },
+  { grade: "D+", minPct: 60, maxPct: 64, points10: 16, isFail: false },
+  { grade: "D", minPct: 55, maxPct: 59, points10: 12, isFail: false },
+  { grade: "E", minPct: 40, maxPct: 54, points10: 8, isFail: false },
+  { grade: "F", minPct: 0, maxPct: 39, points10: 0, isFail: true },
+];
+
+export async function getScale(schoolId: number): Promise<ScaleRow[]> {
   const rows = await db
     .select()
     .from(gradingScale)
     .where(eq(gradingScale.schoolId, schoolId))
     .orderBy(gradingScale.sortOrder);
+
+  if (rows.length === 0) return DEFAULT_SCALE;
 
   return rows.map((r) => ({
     grade: r.grade,
@@ -113,8 +131,8 @@ export type StudentResult = {
 export async function computeClassResults(
   examId: number,
   classId: number,
-  scale?: ScaleRow[],
-  schoolId = 1,
+  scale: ScaleRow[] | undefined,
+  schoolId: number,
 ): Promise<StudentResult[]> {
   const gradingScaleRows = scale ?? (await getScale(schoolId));
 
@@ -396,9 +414,9 @@ export async function computeClassResults(
 
 export async function attendancePct(
   studentId: number,
-  from?: Date,
-  to?: Date,
-  schoolId = 1,
+  from: Date | undefined,
+  to: Date | undefined,
+  schoolId: number,
 ) {
   const conds = [
     eq(attendance.studentId, studentId),
@@ -486,28 +504,30 @@ export function addDays(d: Date, n: number): string {
   return dateStr(c);
 }
 
+/**
+ * `settings` is a global key/value table. School 1 keeps the original bare
+ * keys for backward compatibility; every other tenant uses `s<id>:<key>`.
+ */
+export function settingKey(schoolId: number, key: string): string {
+  return schoolId === 1 ? key : `s${schoolId}:${key}`;
+}
+
 export async function getSetting(
   key: string,
+  schoolId: number,
 ): Promise<string | null> {
   const rows = await db
     .select()
     .from(settingsTable)
-    .where(eq(settingsTable.key, key))
+    .where(eq(settingsTable.key, settingKey(schoolId, key)))
     .limit(1);
 
   return rows[0]?.value ?? null;
 }
 
-export const DEFAULT_SCHOOL = {
-  name: "Shree Jana Jagriti Secondary School",
-  nameNp: "श्री जन जागृति माध्यमिक विद्यालय",
-  address: "Harion-8 (Betali), Sarlahi, Nepal",
-  contact: "+977-56-570012",
-  email: "info@sjjs.edu.np",
-  website: "www.sjjs.edu.np",
-};
+export const DEFAULT_SCHOOL = DEFAULT_SCHOOL_INFO;
 
-export async function getSchool(schoolId = 1): Promise<{
+export type SchoolInfo = {
   name: string;
   nameNp: string;
   address: string;
@@ -515,23 +535,49 @@ export async function getSchool(schoolId = 1): Promise<{
   email: string;
   website: string;
   logoUrl: string | null;
+  principalName: string;
   minAttendance: number;
-}> {
-  // `settings` is a global table (no school_id column), so no scoping applies here.
-  const rows = await db.select().from(settingsTable);
-  const map = Object.fromEntries(
-    rows.map((r) => [r.key, r.value ?? ""]),
-  );
+};
+
+/** Branding and policy for one tenant: the schools row first, then its scoped settings. */
+export async function getSchool(schoolId: number): Promise<SchoolInfo> {
+  const keys = [
+    "school_name", "school_name_np", "school_address", "school_contact",
+    "school_email", "school_website", "school_logo", "principal_name", "min_attendance",
+  ];
+  const [schoolRows, settingRows] = await Promise.all([
+    db.select().from(schools).where(eq(schools.id, schoolId)).limit(1),
+    db
+      .select()
+      .from(settingsTable)
+      .where(inArray(settingsTable.key, keys.map((k) => settingKey(schoolId, k)))),
+  ]);
+  const row = schoolRows[0];
+  const map: Record<string, string> = {};
+  for (const r of settingRows) {
+    const bare = schoolId === 1 ? r.key : r.key.slice(`s${schoolId}:`.length);
+    map[bare] = r.value ?? "";
+  }
+  // Only the original school falls back to its historical defaults.
+  const fallback = schoolId === 1
+    ? DEFAULT_SCHOOL
+    : { name: "", nameNp: "", address: "", contact: "", email: "", website: "" };
+
+  const minAttendance = Number(map["min_attendance"]);
 
   return {
-    name: map["school_name"] || DEFAULT_SCHOOL.name,
-    nameNp: map["school_name_np"] || DEFAULT_SCHOOL.nameNp,
-    address: map["school_address"] || DEFAULT_SCHOOL.address,
-    contact: map["school_contact"] || DEFAULT_SCHOOL.contact,
-    email: map["school_email"] || DEFAULT_SCHOOL.email,
-    website: map["school_website"] || DEFAULT_SCHOOL.website,
-    logoUrl: map["school_logo"] || null,
-    minAttendance: Number(map["min_attendance"] || 75),
+    name: map["school_name"] || row?.name || fallback.name || "School",
+    nameNp: map["school_name_np"] || row?.nameNp || fallback.nameNp,
+    address: map["school_address"] || row?.address || fallback.address,
+    contact: map["school_contact"] || row?.phone || fallback.contact,
+    email: map["school_email"] || row?.contactEmail || fallback.email,
+    website: map["school_website"] || fallback.website,
+    logoUrl: map["school_logo"] || row?.logoUrl || null,
+    principalName: map["principal_name"] || row?.principalName || "Head Teacher",
+    minAttendance:
+      Number.isFinite(minAttendance) && minAttendance >= 0 && minAttendance <= 100
+        ? minAttendance
+        : 75,
   };
 }
 
@@ -539,7 +585,7 @@ export async function getSchool(schoolId = 1): Promise<{
 export async function classLabel(
   classId: number | null,
   sectionId: number | null,
-  schoolId = 1,
+  schoolId: number,
 ) {
   if (!classId) return "—";
 

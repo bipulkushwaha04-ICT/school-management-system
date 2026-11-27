@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import PrintButton from "@/components/print-button";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
@@ -15,7 +15,6 @@ import {
   parentChildren,
   classSubjects,
   teachers,
-  settings as settingsTable,
 } from "@/db/schema";
 import { requireUser } from "@/lib/auth";
 import { currentSchoolId } from "@/lib/tenant";
@@ -160,13 +159,7 @@ export default async function MarksheetPage({
     )
     .limit(1);
 
-  const [principal] = await db
-    .select()
-    .from(settingsTable)
-    .where(eq(settingsTable.key, "principal_name"))
-    .limit(1);
-
-  const principalName = principal?.value || "Head Teacher";
+  const principalName = school.principalName;
   const logoUrl = school.logoUrl || "/images/emblem.png";
 
   const rows = resultRow?.rows ?? [];

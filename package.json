@@ -7,11 +7,12 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "node --conditions=react-server --import tsx --test tests/grading.test.ts tests/auth.test.ts",
+    "test": "node --conditions=react-server --import tsx --test tests/grading.test.ts tests/auth.test.ts tests/csv.test.ts",
     "check:superadmin": "node scripts/check-superadmin.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.1",
+    "@vercel/blob": "^2.9.0",
     "dotenv": "17.3.1",
     "drizzle-orm": "0.45.2",
     "next": "^16.4.6",

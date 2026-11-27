@@ -1,54 +1,82 @@
 
 import Image from "next/image";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { settings as settingsTable, gradingScale } from "@/db/schema";
+import { settings as settingsTable, gradingScale, schools } from "@/db/schema";
 import { requireRole, logAudit } from "@/lib/auth";
 import { flashTo } from "@/actions/auth";
-import { getSchool } from "@/lib/grading";
+import { DEFAULT_SCALE, getSchool, settingKey } from "@/lib/grading";
+import { currentSchoolId } from "@/lib/tenant";
 import { PageHead, Icon, Field, Badge } from "@/components/ui";
 import { RestoreForm } from "./RestoreForm";
 
 export const dynamic = "force-dynamic";
 
-async function upsertSetting(key: string, value: string) {
-  const existing = await db
-    .select()
-    .from(settingsTable)
-    .where(eq(settingsTable.key, key))
-    .limit(1);
-
-  if (existing.length > 0) {
-    await db
-      .update(settingsTable)
-      .set({ value })
-      .where(eq(settingsTable.key, key));
-  } else {
-    await db.insert(settingsTable).values({ key, value });
-  }
+async function upsertSetting(schoolId: number, key: string, value: string) {
+  const scopedKey = settingKey(schoolId, key);
+  await db
+    .insert(settingsTable)
+    .values({ key: scopedKey, value })
+    .onConflictDoUpdate({ target: settingsTable.key, set: { value } });
 }
+
+const MAX_TEXT = 200;
 
 export async function saveSchoolSettings(formData: FormData) {
   "use server";
 
   const user = await requireRole("admin");
+  const schoolId = await currentSchoolId();
 
-  const map: [string, FormDataEntryValue | null][] = [
-    ["school_name", formData.get("name")],
-    ["school_name_np", formData.get("nameNp")],
-    ["school_address", formData.get("address")],
-    ["school_contact", formData.get("contact")],
-    ["school_email", formData.get("email")],
-    ["school_website", formData.get("website")],
-    ["school_logo", formData.get("logoUrl")],
-    ["principal_name", formData.get("principal")],
-    ["min_attendance", formData.get("minAttendance")],
+  const read = (name: string) => String(formData.get(name) ?? "").trim().slice(0, MAX_TEXT);
+  const name = read("name");
+  const email = read("email");
+  const logoUrl = read("logoUrl");
+  const minAttendanceRaw = read("minAttendance");
+  const minAttendance = minAttendanceRaw === "" ? null : Number(minAttendanceRaw);
+
+  if (!name) {
+    await flashTo("/settings", "School name is required.", true);
+  }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    await flashTo("/settings", "Enter a valid school email address.", true);
+  }
+  if (logoUrl && !(logoUrl.startsWith("/") && !logoUrl.startsWith("//")) && !/^https:\/\//i.test(logoUrl)) {
+    await flashTo("/settings", "Logo URL must be a site path like /images/logo.png or an https:// link.", true);
+  }
+  if (minAttendance !== null && (!Number.isFinite(minAttendance) || minAttendance < 0 || minAttendance > 100)) {
+    await flashTo("/settings", "Minimum attendance must be between 0 and 100.", true);
+  }
+
+  const map: [string, string][] = [
+    ["school_name", name],
+    ["school_name_np", read("nameNp")],
+    ["school_address", read("address")],
+    ["school_contact", read("contact")],
+    ["school_email", email],
+    ["school_website", read("website")],
+    ["school_logo", logoUrl],
+    ["principal_name", read("principal")],
+    ["min_attendance", minAttendance === null ? "" : String(minAttendance)],
   ];
 
-  for (const [k, v] of map) {
-    const s = String(v ?? "").trim();
-    if (s) await upsertSetting(k, s);
-  }
+  // Saving an emptied field clears it, so stale values never linger.
+  for (const [k, v] of map) await upsertSetting(schoolId, k, v);
+
+  // Keep the tenant record (used by the platform console) in step.
+  await db
+    .update(schools)
+    .set({
+      name,
+      nameNp: read("nameNp") || null,
+      address: read("address") || null,
+      phone: read("contact") || null,
+      contactEmail: email || null,
+      principalName: read("principal") || null,
+      logoUrl: logoUrl || null,
+      updatedAt: new Date(),
+    })
+    .where(eq(schools.id, schoolId));
 
   await logAudit(user.id, "Updated school settings", "settings");
   await flashTo("/settings", "School settings saved.");
@@ -58,25 +86,58 @@ export async function saveScaleRow(formData: FormData) {
   "use server";
 
   const user = await requireRole("admin");
+  const schoolId = await currentSchoolId();
 
   const id = Number(formData.get("id") ?? 0);
-  const grade = String(formData.get("grade") ?? "").trim();
+  const grade = String(formData.get("grade") ?? "").trim().slice(0, 5);
   const minPct = Number(formData.get("minPct"));
   const maxPct = Number(formData.get("maxPct"));
   const points10 = Number(formData.get("points10"));
   const isFail = formData.get("isFail") === "on";
-  const sortOrder = Number(formData.get("sortOrder"));
+  const sortOrder = Number(formData.get("sortOrder") || 0);
 
-  if (!grade || isNaN(minPct) || isNaN(maxPct) || minPct > maxPct) {
-    await flashTo("/settings", "Invalid scale row — check grade name and ranges.", true);
+  const valid =
+    grade &&
+    Number.isInteger(id) && id >= 0 &&
+    Number.isFinite(minPct) && Number.isFinite(maxPct) &&
+    minPct >= 0 && maxPct <= 100 && minPct <= maxPct &&
+    Number.isInteger(points10) && points10 >= 0 && points10 <= 40 &&
+    Number.isInteger(sortOrder);
+
+  if (!valid) {
+    await flashTo("/settings", "Invalid scale row: check the grade, a 0 to 100 range and grade points of 0 to 4.0.", true);
     return;
   }
 
   const values = { grade, minPct, maxPct, points10, isFail, sortOrder };
   if (id > 0) {
-    await db.update(gradingScale).set(values).where(eq(gradingScale.id, id));
+    const updated = await db
+      .update(gradingScale)
+      .set(values)
+      .where(and(eq(gradingScale.id, id), eq(gradingScale.schoolId, schoolId)))
+      .returning({ id: gradingScale.id });
+    if (updated.length === 0) {
+      await flashTo("/settings", "That grading row was not found.", true);
+    }
   } else {
-    await db.insert(gradingScale).values(values);
+    // First edit on a school still using the default scale: materialise it.
+    const existing = await db
+      .select({ id: gradingScale.id })
+      .from(gradingScale)
+      .where(eq(gradingScale.schoolId, schoolId))
+      .limit(1);
+    if (existing.length === 0) {
+      await db.insert(gradingScale).values(
+        DEFAULT_SCALE.map((r, i) => ({ ...r, sortOrder: i + 1, schoolId })),
+      );
+    }
+    await db
+      .insert(gradingScale)
+      .values({ ...values, schoolId })
+      .onConflictDoUpdate({
+        target: [gradingScale.schoolId, gradingScale.grade],
+        set: values,
+      });
   }
 
   await logAudit(
@@ -89,18 +150,24 @@ export async function saveScaleRow(formData: FormData) {
 
   await flashTo(
     "/settings",
-    "Grading scale updated — new results will use the revised rules."
+    "Grading scale updated. New results will use the revised rules."
   );
 }
 
 export default async function SettingsPage() {
   await requireRole("admin");
+  const schoolId = await currentSchoolId();
 
-  const school = await getSchool();
-  const scale = await db
+  const school = await getSchool(schoolId);
+  const savedScale = await db
     .select()
     .from(gradingScale)
+    .where(eq(gradingScale.schoolId, schoolId))
     .orderBy(gradingScale.sortOrder);
+  // Schools without their own scale see (and can edit) the default one.
+  const scale = savedScale.length > 0
+    ? savedScale
+    : DEFAULT_SCALE.map((r, i) => ({ ...r, id: 0, sortOrder: i + 1 }));
 
   const logoUrl = school.logoUrl || "/images/emblem.png";
 
@@ -183,7 +250,7 @@ export default async function SettingsPage() {
               <Field label="Head teacher name">
                 <input
                   name="principal"
-                  defaultValue="Principal"
+                  defaultValue={school.principalName}
                   className="inp"
                 />
               </Field>
@@ -244,7 +311,7 @@ export default async function SettingsPage() {
 
                 <tbody>
                   {scale.map((g) => (
-                    <tr key={g.id}>
+                    <tr key={`${g.id}-${g.grade}`}>
                       <td className="px-0">
                         <form
                           action={saveScaleRow}
@@ -285,7 +352,7 @@ export default async function SettingsPage() {
                           <input
                             name="points10"
                             type="number"
-                            step="10"
+                            step="1"
                             min="0"
                             max="40"
                             defaultValue={g.points10}

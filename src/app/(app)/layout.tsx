@@ -12,7 +12,7 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const user = await requireUser();
-  const school = await getSchool();
+  const school = await getSchool(user.schoolId ?? 1);
 
   let items: NavItem[];
 

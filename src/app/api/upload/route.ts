@@ -2,7 +2,9 @@
 import { NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
 import { promises as fs } from "fs";
+import { put, del } from "@vercel/blob";
 import path from "path";
+import crypto from "crypto";
 import { db } from "@/db";
 import { notes, academicYears, classes, sections, subjects, classSubjects, teachers } from "@/db/schema";
 import { getSessionUser, logAudit } from "@/lib/auth";
@@ -24,6 +26,31 @@ const ALLOWED = [
   ".png",
   ".webp",
 ];
+
+/** Rejects binary files whose bytes don't match the claimed type. */
+function hasExpectedSignature(ext: string, buf: Buffer): boolean {
+  const starts = (...bytes: number[]) => bytes.every((b, i) => buf[i] === b);
+  switch (ext) {
+    case ".pdf":
+      return starts(0x25, 0x50, 0x44, 0x46);
+    case ".png":
+      return starts(0x89, 0x50, 0x4e, 0x47);
+    case ".jpg":
+    case ".jpeg":
+      return starts(0xff, 0xd8, 0xff);
+    case ".webp":
+      return starts(0x52, 0x49, 0x46, 0x46) && buf.subarray(8, 12).toString("latin1") === "WEBP";
+    case ".docx":
+    case ".pptx":
+      return starts(0x50, 0x4b, 0x03, 0x04);
+    case ".doc":
+    case ".ppt":
+      return starts(0xd0, 0xcf, 0x11, 0xe0);
+    default:
+      // Text formats: refuse anything with NUL bytes (i.e. a disguised binary).
+      return !buf.subarray(0, 4096).includes(0);
+  }
+}
 
 export async function POST(req: Request) {
   const user = await getSessionUser();
@@ -52,7 +79,7 @@ export async function POST(req: Request) {
 
   const fd = await req.formData();
   const file = fd.get("file");
-  const title = String(fd.get("title") ?? "").trim();
+  const title = String(fd.get("title") ?? "").trim().slice(0, 200);
 
   if (!file || !(file instanceof File)) {
     return NextResponse.json(
@@ -64,6 +91,13 @@ export async function POST(req: Request) {
   if (!title) {
     return NextResponse.json(
       { error: "Title is required." },
+      { status: 400 }
+    );
+  }
+
+  if (file.size === 0) {
+    return NextResponse.json(
+      { error: "The file is empty." },
       { status: 400 }
     );
   }
@@ -151,13 +185,49 @@ export async function POST(req: Request) {
     .limit(1);
 
   const tenantFolder = `school-${schoolId}`;
-  const dir = path.join(process.cwd(), "public", "uploads", tenantFolder);
-  await fs.mkdir(dir, { recursive: true });
-
-  const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-  const filePath = path.join(dir, safeName);
+  const safeName = `${Date.now()}-${crypto.randomUUID()}${ext}`;
   const buf = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(filePath, buf);
+
+  if (!hasExpectedSignature(ext, buf)) {
+    return NextResponse.json(
+      { error: "The file content does not match its extension." },
+      { status: 400 }
+    );
+  }
+
+  // Serverless hosts (Vercel) have a read-only filesystem, so production
+  // uploads go to Vercel Blob. Local development keeps using public/uploads.
+  let fileUrl: string;
+  let cleanup: () => Promise<unknown>;
+  try {
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const blob = await put(`uploads/${tenantFolder}/${safeName}`, buf, {
+        access: "public",
+        contentType: file.type || undefined,
+        addRandomSuffix: false,
+      });
+      fileUrl = blob.url;
+      cleanup = () => del(blob.url);
+    } else if (process.env.VERCEL) {
+      return NextResponse.json(
+        { error: "File storage is not configured. Connect a Vercel Blob store (BLOB_READ_WRITE_TOKEN) to enable uploads." },
+        { status: 503 }
+      );
+    } else {
+      const dir = path.join(process.cwd(), "public", "uploads", tenantFolder);
+      await fs.mkdir(dir, { recursive: true });
+      const filePath = path.join(dir, safeName);
+      await fs.writeFile(filePath, buf);
+      fileUrl = `/uploads/${tenantFolder}/${safeName}`;
+      cleanup = () => fs.unlink(filePath);
+    }
+  } catch (error) {
+    console.error("Upload storage failed", error);
+    return NextResponse.json(
+      { error: "Could not store the file. Please try again." },
+      { status: 500 }
+    );
+  }
 
   let row: { id: number };
   try {
@@ -170,14 +240,14 @@ export async function POST(req: Request) {
       sectionId,
       subjectId,
       type: "file",
-      url: `/uploads/${tenantFolder}/${safeName}`,
-      fileName: file.name,
+      url: fileUrl,
+      fileName: file.name.slice(0, 200),
       academicYearId: year?.id ?? null,
       uploadedById: user.id,
     })
       .returning({ id: notes.id });
   } catch (error) {
-    await fs.unlink(filePath).catch(() => undefined);
+    await cleanup().catch(() => undefined);
     throw error;
   }
 
@@ -193,7 +263,7 @@ export async function POST(req: Request) {
     {
       ok: true,
       title,
-      url: `/uploads/${tenantFolder}/${safeName}`,
+      url: fileUrl,
       noteId: row.id,
     },
     {

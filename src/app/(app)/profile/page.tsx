@@ -117,10 +117,10 @@ export default async function ProfilePage() {
               <input name="current" type="password" required autoComplete="current-password" className="inp" />
             </Field>
             <Field label="New password">
-              <input name="next" type="password" required minLength={6} autoComplete="new-password" className="inp" />
+              <input name="next" type="password" required minLength={8} autoComplete="new-password" className="inp" />
             </Field>
             <Field label="Confirm new password">
-              <input name="confirm" type="password" required minLength={6} autoComplete="new-password" className="inp" />
+              <input name="confirm" type="password" required minLength={8} autoComplete="new-password" className="inp" />
             </Field>
             <button className="btn-primary"><Icon name="lock" className="w-4 h-4" /> Update password</button>
           </form>

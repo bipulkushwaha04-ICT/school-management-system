@@ -2,16 +2,11 @@ import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { auditLogs, schools, schoolSubscriptions, subscriptionPlans, users } from "@/db/schema";
 import { getPlatformAdminUser } from "@/lib/platform-auth";
+import { toCsv } from "@/lib/csv";
 
 export const dynamic = "force-dynamic";
 
-const cell = (value: unknown) => {
-  const text = value == null ? "" : String(value);
-  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
-};
-
-const csv = (header: string[], rows: unknown[][]) =>
-  [header, ...rows].map((row) => row.map(cell).join(",")).join("\r\n");
+const csv = (header: string[], rows: unknown[][]) => toCsv(header, rows);
 
 export async function GET(request: Request) {
   const admin = await getPlatformAdminUser();

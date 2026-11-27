@@ -1,4 +1,4 @@
-﻿
+
 import { eq, and, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { examinations, examSubjects, classes, subjects, students, enrollments, classSubjects, marks, academicYears } from "@/db/schema";
@@ -21,11 +21,12 @@ export async function submitMarks(formData: FormData) {
   const schoolId = await currentSchoolId();
 
   const examSubjectId = Number(formData.get("examSubjectId"));
+  if (!Number.isInteger(examSubjectId) || examSubjectId <= 0) await flashTo("/marks", "Select a subject first.", true);
 
   const [sub] = await db
     .select({ e: examinations, exam: examSubjects })
     .from(examSubjects)
-    .innerJoin(examinations, eq(examinations.id, examSubjects.examId))
+    .innerJoin(examinations, and(eq(examinations.id, examSubjects.examId), eq(examinations.schoolId, schoolId)))
     .where(and(eq(examSubjects.id, examSubjectId), eq(examSubjects.schoolId, schoolId)))
     .limit(1);
 
@@ -34,6 +35,7 @@ export async function submitMarks(formData: FormData) {
 
   // teacher permission: must be assigned to this class+subject
   if (user.role === "teacher") {
+    if (!user.teacherId) await flashTo("/marks", "Your account is not linked to a teacher record.", true);
     const [a] = await db
       .select()
       .from(classSubjects)
@@ -54,56 +56,70 @@ export async function submitMarks(formData: FormData) {
   const theoryFull = sub.exam.fullMarks - sub.exam.practicalMarks;
   const practicalFull = sub.exam.practicalMarks;
 
-  let saved = 0;
-  let invalid = 0;
+  const back = `/marks?exam=${sub.e.id}&examSubjectId=${examSubjectId}`;
+  const parseMark = (raw: FormDataEntryValue | null): number | null | typeof NaN => {
+    const text = raw == null ? "" : String(raw).trim();
+    if (text === "") return null;
+    const n = Number(text);
+    return Number.isFinite(n) ? Math.round(n) : Number.NaN;
+  };
 
-  for (const key of Object.keys(Object.fromEntries(formData.entries()))) {
-    if (!key.startsWith("t")) continue;
+  const rowsToSave: { examSubjectId: number; studentId: number; theory: number; practical: number; schoolId: number }[] = [];
+  const problems: string[] = [];
+
+  for (const key of new Set(formData.keys())) {
+    if (!/^t\d+$/.test(key)) continue;
 
     const studentId = Number(key.slice(1));
-    if (!Number.isInteger(studentId) || !allowedStudentIds.has(studentId)) {
-      invalid++;
-      continue;
-    }
-    const tRaw = formData.get(key) as string;
-    const pRaw = formData.get(`p${studentId}`) as string;
-
-    if (tRaw == null && pRaw == null) continue;
-
-    const t = tRaw === "" ? null : Math.round(Number(tRaw));
-    const p = practicalFull > 0 && pRaw !== undefined && pRaw !== "" ? Math.round(Number(pRaw)) : 0;
-
-    if (t == null || isNaN(t) || t < 0 || t > theoryFull) {
-      invalid++;
+    if (!allowedStudentIds.has(studentId)) {
+      problems.push(`student #${studentId} is not in this class`);
       continue;
     }
 
-    if (p < 0 || p > practicalFull) {
-      invalid++;
+    const t = parseMark(formData.get(key));
+    const p = practicalFull > 0 ? parseMark(formData.get(`p${studentId}`)) : 0;
+
+    // A completely blank row means "not entered yet": leave it untouched.
+    if (t === null && (p === null || practicalFull === 0)) continue;
+
+    if (t === null || Number.isNaN(t) || t < 0 || t > theoryFull) {
+      problems.push(`theory for student #${studentId} must be 0 to ${theoryFull}`);
+      continue;
+    }
+    const practical = p ?? 0;
+    if (Number.isNaN(practical) || practical < 0 || practical > practicalFull) {
+      problems.push(`practical for student #${studentId} must be 0 to ${practicalFull}`);
       continue;
     }
 
-    await db
-      .insert(marks)
-      .values({ examSubjectId, studentId, theory: t, practical: p, schoolId })
-      .onConflictDoUpdate({
-        target: [marks.schoolId, marks.examSubjectId, marks.studentId],
-        set: { theory: t, practical: p }
-      });
-
-    saved++;
+    rowsToSave.push({ examSubjectId, studentId, theory: t, practical, schoolId });
   }
 
-  if (invalid > 0) {
-    await flashTo(`/marks?exam=${sub.e.id}&examSubjectId=${examSubjectId}`, `Saved ${saved} student(s). ${invalid} entr${invalid === 1 ? "y was" : "ies were"} rejected — check the full marks limits.`, true);
+  // All-or-nothing: never save half a sheet when some entries are wrong.
+  if (problems.length > 0) {
+    await flashTo(back, `Nothing was saved. Fix ${problems.length} entr${problems.length === 1 ? "y" : "ies"}: ${problems.slice(0, 3).join("; ")}${problems.length > 3 ? "…" : ""}.`, true);
     return;
   }
+
+  if (rowsToSave.length === 0) {
+    await flashTo(back, "No marks were entered.", true);
+    return;
+  }
+
+  await db
+    .insert(marks)
+    .values(rowsToSave)
+    .onConflictDoUpdate({
+      target: [marks.schoolId, marks.examSubjectId, marks.studentId],
+      set: { theory: sql`excluded.theory`, practical: sql`excluded.practical` },
+    });
+  const saved = rowsToSave.length;
 
   const [examRow] = await db.select().from(examinations).where(and(eq(examinations.id, sub.e.id), eq(examinations.schoolId, schoolId))).limit(1);
 
   await logAudit(user.id, "Entered marks", "marks", examSubjectId, `${saved} student(s) — ${examRow?.name}`);
 
-  await flashTo(`/marks?exam=${sub.e.id}&examSubjectId=${examSubjectId}`, `Marks saved for ${saved} student(s).`);
+  await flashTo(back, `Marks saved for ${saved} student(s).`);
 }
 
 /* ----------------------------------- Page ----------------------------------- */

@@ -46,8 +46,8 @@ export async function createSchoolAdmin(formData: FormData) {
   const email = text(formData.get("email"))?.toLowerCase();
   const password = String(formData.get("password") ?? "");
   const schoolId = Number(formData.get("schoolId"));
-  if (!name || !email || !schoolId || password.length < 6) {
-    await flashTo("/superadmin/users", "Name, school, email and a password of at least 6 characters are required.", true);
+  if (!name || !email || !schoolId || password.length < 8) {
+    await flashTo("/superadmin/users", "Name, school, email and a password of at least 8 characters are required.", true);
   }
   const [existing] = await db.select({ id: users.id }).from(users).where(eq(users.email, email!)).limit(1);
   if (existing) await flashTo("/superadmin/users", "That email is already registered.", true);

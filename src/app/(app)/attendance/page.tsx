@@ -239,7 +239,7 @@ async function Report({ searchParams }: { searchParams: Record<string, string | 
   const to = todayStr();
   const rows = await Promise.all(
     roster.map(async (r) => {
-      const p = await attendancePct(r.student.id, fromDate, new Date(to));
+      const p = await attendancePct(r.student.id, fromDate, new Date(to), schoolId);
       return { r, p };
     }),
   );
@@ -336,8 +336,8 @@ async function Report({ searchParams }: { searchParams: Record<string, string | 
 
 async function Mine({ studentId }: { studentId: number }) {
   const schoolId = await currentSchoolId();
-  const att = await attendancePct(studentId);
-  const school = await getSchool();
+  const att = await attendancePct(studentId, undefined, undefined, schoolId);
+  const school = await getSchool(schoolId);
   const recent = await db.select().from(attendance).where(and(eq(attendance.studentId, studentId), eq(attendance.schoolId, schoolId))).orderBy(desc(attendance.attDate)).limit(60);
 
   return (
@@ -422,9 +422,9 @@ async function ChildAttendance({ studentId }: { studentId: number }) {
   const schoolId = await currentSchoolId();
   const [child, school] = await Promise.all([
     db.select().from(students).where(and(eq(students.id, studentId), eq(students.schoolId, schoolId))).limit(1),
-    getSchool(),
+    getSchool(schoolId),
   ]);
-  const att = await attendancePct(studentId);
+  const att = await attendancePct(studentId, undefined, undefined, schoolId);
   const recent = await db.select().from(attendance).where(and(eq(attendance.studentId, studentId), eq(attendance.schoolId, schoolId))).orderBy(desc(attendance.attDate)).limit(30);
   return (
     <div className="grid md:grid-cols-3 gap-3.5">

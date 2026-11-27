@@ -70,3 +70,19 @@ test("fmtDate formats date-only and Date values consistently", () => {
   assert.equal(fmtDate("2026-11-23"), "23 Nov 2026");
   assert.equal(fmtDate(new Date(2026, 10, 23)), "23 Nov 2026");
 });
+
+test("default scale grades every percentage from 0 to 100", async () => {
+  const { DEFAULT_SCALE } = await import("../src/lib/grading");
+  for (let pct = 0; pct <= 100; pct += 0.5) {
+    const g = gradeFor(pct, DEFAULT_SCALE);
+    assert.equal(g.fail, pct < 40, `pct ${pct}`);
+  }
+  assert.equal(gradeFor(100, DEFAULT_SCALE).grade, "A+");
+  assert.equal(gradeFor(39.9, DEFAULT_SCALE).grade, "F");
+});
+
+test("settingKey keeps school 1 keys and scopes other tenants", async () => {
+  const { settingKey } = await import("../src/lib/grading");
+  assert.equal(settingKey(1, "school_name"), "school_name");
+  assert.equal(settingKey(7, "school_name"), "s7:school_name");
+});
